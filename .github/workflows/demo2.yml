@@ -32,6 +32,6 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         source: ".,!frontend/HelpBox.jsx"  # Copy everything except frontend build
         target: "/opt/my-app/test"
-        debug:true
+        debug: true
     - name: Confirm deployment
       run: echo "Deployment complete."
