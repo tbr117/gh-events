@@ -11,7 +11,14 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      
+    - name: Debug SSH connection
+      run: |
+        echo "Host: ${{ secrets.SERVER_HOST }}"
+        echo "User: ${{ secrets.SERVER_USER }}"
+        echo "Key length: ${#SERVER_SSH_KEY}"
+        # Don't print the actual key for security
+      env:
+        SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}      
     - name: Simulate Build and push (static site)
       run: |
         cd src
@@ -25,5 +32,6 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         source: ".,!frontend/HelpBox.jsx"  # Copy everything except frontend build
         target: "/opt/my-app/test"
+        debug:true
     - name: Confirm deployment
       run: echo "Deployment complete."
