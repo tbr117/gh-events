@@ -1,5 +1,16 @@
 name: Events Demo 1
-on: ...
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+  workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
