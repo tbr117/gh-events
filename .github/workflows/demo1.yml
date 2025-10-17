@@ -6,6 +6,8 @@ on:
   pull_request:
     branches:
       - main
+      - 'dev-*' # dev-new dev-feature etc "/" not included
+      - 'release/**' # release/v1.0 release/v2.0/feat etc "/" included"
     types:
       - opened
       - synchronize

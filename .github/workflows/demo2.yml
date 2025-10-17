@@ -1,0 +1,29 @@
+name: Deploy to Production
+
+on:
+  push:
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Simulate Build and push (static site)
+      run: |
+        cd src
+        cd components
+        
+    - name: Copy test files to server
+      uses: appleboy/scp-action@v0.1.3
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        source: ".,!frontend/HelpBox.jsx"  # Copy everything except frontend build
+        target: "/opt/my-app/test"
+    - name: Confirm deployment
+      run: echo "Deployment complete."
